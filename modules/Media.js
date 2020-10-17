@@ -86,6 +86,7 @@ export const useMedia = ({ query, queries, defaultMatches, targetWindow, onChang
     });
   };
 
+  // This is going to happen on the first render pass, not after setup.
   const [matches, setMatches] = useState(() => {
     // If props.defaultMatches has been set, ensure we trigger a two-pass render.
     // This is useful for SSR with mismatching defaultMatches vs actual matches from window.matchMedia
@@ -102,7 +103,7 @@ export const useMedia = ({ query, queries, defaultMatches, targetWindow, onChang
       /* if (props.queries) */
       return Object.keys(queries).reduce(
         (acc, key) => ({ ...acc, [key]: true }),
-        {}
+        {},
       );
     }
     // Else we'll use the state from the MQLs that were just set up.
